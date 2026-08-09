@@ -7,14 +7,23 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class AccountTest {
-//    @Nested
-//    inner class Deposit {
-//        @Test
-//        fun `increases the balance`() {
-//            val account = Account(BigDecimal(100))
-//            account.deposit
-//        }
-//    }
+    @Nested
+    inner class Deposit {
+        @Test
+        fun `increases the balance`() {
+            val account = Account(BigDecimal(100))
+            account.deposit(BigDecimal(30))
+            assertEquals(account.getBalance(), BigDecimal(130))
+        }
+
+        @Test
+        fun `throws Account Exception when deposit amount is less than 0`() {
+            val account = Account(BigDecimal(100))
+            val exception = assertFailsWith<AccountException> { account.deposit(BigDecimal(-30)) }
+
+            assertEquals("Deposit amount must be greater than zero!", exception.message)
+        }
+    }
 
     @Nested
     inner class Withdraw {
