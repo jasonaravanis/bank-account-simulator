@@ -8,8 +8,11 @@ class AccountException(
 ) : Exception(message, cause)
 
 class Account(
+    private var name: String,
     private var balance: BigDecimal = BigDecimal.ZERO,
 ) {
+    fun getName(): String = name
+
     fun getBalance(): BigDecimal = balance
 
     fun deposit(amount: BigDecimal) {
