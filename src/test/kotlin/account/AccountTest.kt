@@ -1,12 +1,21 @@
 package account
 
+import org.junit.jupiter.api.Nested
 import java.math.BigDecimal
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import org.junit.jupiter.api.Nested
 
 class AccountTest {
+//    @Nested
+//    inner class Deposit {
+//        @Test
+//        fun `increases the balance`() {
+//            val account = Account(BigDecimal(100))
+//            account.deposit
+//        }
+//    }
+
     @Nested
     inner class Withdraw {
         @Test
@@ -26,6 +35,18 @@ class AccountTest {
                 }
 
             assertEquals("Withdrawal amount cannot exceed current account balance!", exception.message)
+        }
+
+        @Test
+        fun `throws AccountException when withdrawal amount is less than zero`() {
+            val account = Account(BigDecimal(100))
+
+            val exception =
+                assertFailsWith<AccountException> {
+                    account.withdraw(BigDecimal(-50))
+                }
+
+            assertEquals("Withdrawal amount must be greater than zero!", exception.message)
         }
     }
 }

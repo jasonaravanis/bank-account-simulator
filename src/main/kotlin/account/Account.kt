@@ -12,9 +12,14 @@ class Account(
 ) {
     fun getBalance(): BigDecimal = balance
 
+    fun deposit(amount: BigDecimal) {
+        if (amount < BigDecimal.ZERO) throw AccountException("Deposit amount must be greater than zero!")
+        this.balance += amount
+    }
+
     fun withdraw(amount: BigDecimal) {
-        val newBalance = balance - amount
-        if (newBalance < BigDecimal.ZERO) throw AccountException("Withdrawal amount cannot exceed current account balance!")
-        this.balance = newBalance
+        if (amount < BigDecimal.ZERO) throw AccountException("Withdrawal amount must be greater than zero!")
+        if (balance < amount) throw AccountException("Withdrawal amount cannot exceed current account balance!")
+        this.balance -= amount
     }
 }
