@@ -8,6 +8,15 @@ import kotlin.test.assertFailsWith
 
 class AccountTest {
     @Nested
+    inner class GetBalance {
+        @Test
+        fun `gets the account balance`() {
+            val account = Account(BigDecimal(100))
+            assertEquals(account.getBalance(), BigDecimal(100))
+        }
+    }
+
+    @Nested
     inner class Deposit {
         @Test
         fun `increases the balance`() {
