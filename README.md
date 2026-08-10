@@ -18,16 +18,17 @@ A Kotlin project for learning the language by simulating a simple bank account.
 
 ```mermaid
 flowchart TD
-    Start[User runs the application] --> Ask[Which account would you like to access?]
-    Ask --> ShowList[Show list of existing accounts]
-    ShowList --> OptionA[Choose an account]
-    ShowList --> OptionB[Create new account]
+    Start[User runs the application] --> Ask[What do you want to do?]
+    Ask --> OptionA[Access an existing account]
+    Ask --> OptionB[Create a new account]
+    OptionA --> ShowList[Show list of existing accounts]
+    ShowList --> ChooseAccount[Choose an account]
     OptionB --> AskName[What's the account to be called?]
     AskName --> AskBalance[What is the starting balance?]
     AskBalance --> CheckBalance{Is the balance above zero?}
     CheckBalance -- No --> AskBalance
     CheckBalance -- Yes --> AccountCreated[Account created]
-    OptionA --> AccountAction[Account Action]
+    ChooseAccount --> AccountAction[Account Action]
     AccountCreated --> AccountAction
     AccountAction --> Choice{Choose an action}
     Choice --> Deposit[Deposit]
