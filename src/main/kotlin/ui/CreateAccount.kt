@@ -3,32 +3,34 @@ package ui
 import account.Account
 import java.math.BigDecimal
 
-fun createAccount() {
-    println("Provide a name for your new account.")
+fun parseAccountName(input: String): String? =
+    input.trim().takeIf { it.isNotEmpty() }
 
+fun parseInitialBalance(input: String): BigDecimal? =
+    input.toBigDecimalOrNull()
+        ?.takeIf { it >= BigDecimal.ZERO }
+
+fun buildAccount(name: String, balance: BigDecimal): Account =
+    Account(name, balance)
+
+fun createAccount() {
     var accountName: String? = null
     while (accountName == null) {
         print("Name: ")
-        val accountNameInput = readln()
-        if (accountNameInput.isEmpty()) {
+        accountName = parseAccountName(readln()) ?: run {
             println("Invalid. Please try again.")
-        } else {
-            accountName = accountNameInput
+            null
         }
     }
 
-    println("Your chosen account name is '$accountName'")
-    println("What is the initial balance of your account?")
     var initialBalance: BigDecimal? = null
     while (initialBalance == null) {
         print("Initial balance: ")
-        val initialBalanceInput = readln().toBigDecimalOrNull()
-        when {
-            (initialBalanceInput == null) -> println("Invalid")
-            (initialBalanceInput < BigDecimal.ZERO) -> println("Invalid")
-            else -> initialBalance = initialBalanceInput
+        initialBalance = parseInitialBalance(readln()) ?: run {
+            println("Invalid")
+            null
         }
     }
 
-    val newAccount = Account(accountName, initialBalance)
+    buildAccount(accountName, initialBalance)
 }
