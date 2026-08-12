@@ -8,7 +8,7 @@ class AccountRepository(
     private val file: File,
 ) {
     fun loadAccounts(): List<Account> {
-        if (!file.exists()) return emptyList()
+        if (!file.exists() || file.length() == 0L) return emptyList()
         val json = file.readText()
         val data = Json.decodeFromString<List<AccountData>>(json)
         return data.map { it.toAccount() }

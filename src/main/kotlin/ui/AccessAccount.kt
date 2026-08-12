@@ -1,5 +1,8 @@
 package ui
 
-fun accessAccount() {
-    println("Access account - not yet implemented")
+import account.AccountRepository
+
+fun accessAccount(repository: AccountRepository) {
+    val accounts = repository.loadAccounts()
+    accounts.forEach { println(it) }
 }

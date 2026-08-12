@@ -1,5 +1,7 @@
+import account.AccountRepository
 import ui.accessAccount
 import ui.createAccount
+import java.io.File
 
 enum class Action {
     ACCESS_ACCOUNT,
@@ -8,6 +10,8 @@ enum class Action {
 }
 
 fun main() {
+    val accountRepository = AccountRepository(File("accounts.json"))
+
     println("What do you want to do? Please enter '1' or '2' or '3'")
     println("1. Access an existing account")
     println("2. Create a new account")
@@ -26,8 +30,8 @@ fun main() {
     }
 
     when (userChoice) {
-        Action.ACCESS_ACCOUNT -> accessAccount()
-        Action.CREATE_ACCOUNT -> createAccount()
+        Action.ACCESS_ACCOUNT -> accessAccount(accountRepository)
+        Action.CREATE_ACCOUNT -> createAccount(accountRepository)
         Action.QUIT -> return
     }
 }
