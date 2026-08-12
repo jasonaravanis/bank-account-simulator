@@ -1,5 +1,6 @@
 import account.AccountRepository
 import ui.accessAccount
+import ui.accountActions
 import ui.createAccount
 import java.io.File
 
@@ -30,7 +31,7 @@ fun main() {
     }
 
     when (userChoice) {
-        Action.ACCESS_ACCOUNT -> accessAccount(accountRepository)
+        Action.ACCESS_ACCOUNT -> accessAccount(accountRepository)?.let { accountActions(it, accountRepository) }
         Action.CREATE_ACCOUNT -> createAccount(accountRepository)
         Action.QUIT -> return
     }
